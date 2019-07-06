@@ -20,7 +20,7 @@ public abstract class Scissors implements Runnable{
 		try {
 			br = new BufferedReader(reader);
 
-			String logLine = "";
+			String logLine;
 			for(int i=0; i<skipLineNum;i++) {
 				br.readLine();
 			}
@@ -34,11 +34,6 @@ public abstract class Scissors implements Runnable{
 					System.out.println("0000 :: " + logLine);
 					skipLineNum++;
 				}
-
-//				System.out.println(logLine);
-//				if(skipLineNum == 50) {
-//					throw new IOException();
-//				}
 			}
 
 		} catch (IOException e) {
