@@ -1,3 +1,8 @@
+package com.dk.log.file;
+
+import com.dk.log.Scissors;
+import com.dk.log.ScissorsResult;
+
 import java.io.*;
 import java.util.concurrent.BlockingQueue;
 
@@ -7,7 +12,7 @@ import java.util.concurrent.BlockingQueue;
 public class FileScissors extends Scissors {
 
 	String filePath = "";
-	FileScissors(String filePath, BlockingQueue<String> queue) throws FileNotFoundException{
+	public FileScissors(String filePath, BlockingQueue<String> queue) throws FileNotFoundException{
 		super(new FileReader(filePath), 0, queue);
 		this.filePath = filePath;
 	}
@@ -16,7 +21,7 @@ public class FileScissors extends Scissors {
 	protected void registResult(ScissorsResult sResult) {
 		sResult.setId(filePath);
 		sResult.setSkipNum(sResult.getSkipNum());
-		System.out.println("registResult +  " + sResult.getSkipNum());
-		System.out.println("filePath +  " + filePath);
+//		System.out.println("registResult +  " + sResult.getSkipNum());
+//		System.out.println("filePath +  " + filePath);
 	}
 }

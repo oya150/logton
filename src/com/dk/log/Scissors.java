@@ -1,3 +1,5 @@
+package com.dk.log;
+
 import java.io.*;
 import java.util.concurrent.BlockingQueue;
 
@@ -8,7 +10,7 @@ public abstract class Scissors implements Runnable{
 	Reader reader;
 	int skipLineNum = 0;
 	private BlockingQueue<String> queue;
-	Scissors(Reader reader, int skipLineNum, BlockingQueue<String> queue) {
+	protected Scissors(Reader reader, int skipLineNum, BlockingQueue<String> queue) {
 		this.reader = reader;
 		this.skipLineNum = skipLineNum;
 		this.queue = queue;
@@ -31,15 +33,21 @@ public abstract class Scissors implements Runnable{
 					break;
 				} else {
 					queue.put(logLine);
-					System.out.println("0000 :: " + logLine);
+//					System.out.println("0000 :: " + logLine);
 					skipLineNum++;
 				}
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
+			ScissorsResult sResult = new ScissorsResult();
+			sResult.setSkipNum(skipLineNum);
+			registResult(sResult);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+			ScissorsResult sResult = new ScissorsResult();
+			sResult.setSkipNum(skipLineNum);
+			registResult(sResult);
 			Thread.currentThread().interrupt();
 		}finally{
 			try {
@@ -47,9 +55,6 @@ public abstract class Scissors implements Runnable{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			ScissorsResult sResult = new ScissorsResult();
-			sResult.setSkipNum(skipLineNum);
-			registResult(sResult);
 		}
 	}
 
