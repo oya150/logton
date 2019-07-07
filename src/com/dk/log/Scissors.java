@@ -8,11 +8,11 @@ import java.util.concurrent.BlockingQueue;
  */
 public abstract class Scissors implements Runnable{
 	Reader reader;
-	int skipLineNum = 0;
+	int offset = 0;
 	private BlockingQueue<String> queue;
-	protected Scissors(Reader reader, int skipLineNum, BlockingQueue<String> queue) {
+	protected Scissors(Reader reader, int offset, BlockingQueue<String> queue) {
 		this.reader = reader;
-		this.skipLineNum = skipLineNum;
+		this.offset = offset;
 		this.queue = queue;
 	}
 	@Override
@@ -23,9 +23,7 @@ public abstract class Scissors implements Runnable{
 			br = new BufferedReader(reader);
 
 			String logLine;
-			for(int i=0; i<skipLineNum;i++) {
-				br.readLine();
-			}
+			br.skip(offset);
 
 			while(!Thread.currentThread().isInterrupted()) {
 				logLine = br.readLine();
@@ -33,21 +31,18 @@ public abstract class Scissors implements Runnable{
 					break;
 				} else {
 					queue.put(logLine);
-//					System.out.println("0000 :: " + logLine);
-					skipLineNum++;
+					System.out.println("0000 :: " + logLine);
+					offset++;
 				}
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
-			ScissorsResult sResult = new ScissorsResult();
-			sResult.setSkipNum(skipLineNum);
-			registResult(sResult);
+//			ScissorsResult sResult = new ScissorsResult();
+//			sResult.setOffset(offset);
+//			registResult(sResult);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			ScissorsResult sResult = new ScissorsResult();
-			sResult.setSkipNum(skipLineNum);
-			registResult(sResult);
 			Thread.currentThread().interrupt();
 		}finally{
 			try {

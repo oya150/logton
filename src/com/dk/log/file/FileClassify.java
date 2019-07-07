@@ -1,7 +1,6 @@
 package com.dk.log.file;
 
 import com.dk.log.Classify;
-import com.dk.log.Viewer;
 
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
@@ -31,7 +30,6 @@ public class FileClassify extends Classify {
 		String regex = "\\[(200)\\]\\[https?:\\/\\/\\w+\\.\\w+\\.\\w+\\/(\\w+)\\/(\\w+)\\?(\\w+\\=(\\w+)\\&)?\\w\\=(\\w+)\\]\\[(\\w+)\\]\\[[0-9- :]+\\]";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(msg);
-
 		while(matcher.find()) {
 			String serviceId = matcher.group(3);
 			String apiKey = matcher.group(5);
@@ -48,6 +46,7 @@ public class FileClassify extends Classify {
 			if(browserMap.get(browserName) != null) {
 				browserCnt = browserMap.get(browserName) + 1;
 			}
+			viewer.setTotalApiCnt(viewer.getTotalApiCnt()+1);
 			serviceMap.put(serviceId,serviceCnt);
 			apiMap.put(apiKey,apiCnt);
 			browserMap.put(browserName,browserCnt);
@@ -65,10 +64,10 @@ public class FileClassify extends Classify {
 				int cnt = serviceMap.get(key);
 //				System.out.println("table::::  "+ key + "  =   " + cnt );
 			}
-//			Iterator<String> skeys= apiTable.keySet().iterator();
+//			Iterator<String> skeys= apiKeyTable.keySet().iterator();
 //			while(skeys.hasNext()) {
 //				String key = skeys.next();
-//				int cnt = apiTable.get(key);
+//				int cnt = apiKeyTable.get(key);
 //				System.out.println("table::::  "+ key + "  =   " + cnt );
 //			}
 //			Iterator<String> bkeys= browserTable.keySet().iterator();
@@ -85,14 +84,14 @@ public class FileClassify extends Classify {
 	protected void orderSomthing() {
 //		System.out.println("order =====================:: " + serviceMap.size());
 
-		viewer.setServiceTable(orderDesc(serviceMap));
-		viewer.setApiTable(orderDesc(apiMap));
+		viewer.setServiceIdTable(orderDesc(serviceMap));
+		viewer.setApiKeyTable(orderDesc(apiMap));
 		viewer.setBrowserTable(orderDesc(browserMap));
 		viewer.view();
-//		Iterator<String> keys= serviceTable.keySet().iterator();
+//		Iterator<String> keys= serviceIdTable.keySet().iterator();
 //		while(keys.hasNext()) {
 //			String key = keys.next();
-//			int cnt = serviceTable.get(key);
+//			int cnt = serviceIdTable.get(key);
 //			System.out.println("order::::  "+ key + "  =   " + cnt );
 //		}
 

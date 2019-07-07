@@ -22,7 +22,6 @@ public abstract class Classify implements Runnable{
 				try {
 					msg = queue.take();
 //					System.out.println(msg);
-
 					parse(msg);
 
 					if(queue.isEmpty()) {

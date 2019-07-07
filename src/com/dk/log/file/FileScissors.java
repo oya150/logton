@@ -20,7 +20,7 @@ public class FileScissors extends Scissors {
 	@Override
 	protected void registResult(ScissorsResult sResult) {
 		sResult.setId(filePath);
-		sResult.setSkipNum(sResult.getSkipNum());
+		sResult.setOffset(sResult.getOffset());
 //		System.out.println("registResult +  " + sResult.getSkipNum());
 //		System.out.println("filePath +  " + filePath);
 	}

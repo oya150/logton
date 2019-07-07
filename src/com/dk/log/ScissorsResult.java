@@ -9,7 +9,7 @@ import java.io.Reader;
  */
 public class ScissorsResult{
 	private String id;
-	private int skipNum;
+	private int offset;
 
 	public String getId() {
 		return id;
@@ -19,11 +19,11 @@ public class ScissorsResult{
 		this.id = id;
 	}
 
-	public int getSkipNum() {
-		return skipNum;
+	public int getOffset() {
+		return offset;
 	}
 
-	public void setSkipNum(int skipNum) {
-		this.skipNum = skipNum;
+	public void setOffset(int offset) {
+		this.offset = offset;
 	}
 }
