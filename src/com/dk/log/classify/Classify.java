@@ -1,7 +1,9 @@
-package com.dk.log;
+package com.dk.log.classify;
 
-import java.util.List;
+import com.dk.log.view.Viewer;
+
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -10,31 +12,34 @@ import java.util.concurrent.BlockingQueue;
 public abstract class Classify implements Runnable{
 
 	private BlockingQueue<String> queue;
+	protected Viewer viewer;
 
-	protected Classify(BlockingQueue<String> queue) {
+	protected Classify(BlockingQueue<String> queue, Viewer viewer) {
 		this.queue = queue;
+		this.viewer = viewer;
 	}
 	@Override
 	public void run() {
 
 			while(!Thread.currentThread().isInterrupted()) {
-				String msg = "";
+
+				String msg;
 				try {
 					msg = queue.take();
-//					System.out.println(msg);
 					parse(msg);
 
 					if(queue.isEmpty()) {
 						orderSomthing();
 					}
+
 				} catch (InterruptedException e) {
-					e.printStackTrace();
 					Thread.currentThread().interrupt();
 				}
+
 			}
 	}
 
-	protected abstract List<String> parse(String msg);
+	protected abstract void parse(String msg);
 	protected abstract void orderSomthing();
 
 }

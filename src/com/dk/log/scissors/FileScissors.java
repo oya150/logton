@@ -1,9 +1,7 @@
-package com.dk.log.file;
+package com.dk.log.scissors;
 
-import com.dk.log.Scissors;
-import com.dk.log.ScissorsResult;
-
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -21,7 +19,6 @@ public class FileScissors extends Scissors {
 	protected void registResult(ScissorsResult sResult) {
 		sResult.setId(filePath);
 		sResult.setOffset(sResult.getOffset());
-//		System.out.println("registResult +  " + sResult.getSkipNum());
-//		System.out.println("filePath +  " + filePath);
 	}
+
 }

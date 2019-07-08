@@ -1,6 +1,8 @@
-package com.dk.log;
+package com.dk.log.scissors;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -10,15 +12,17 @@ public abstract class Scissors implements Runnable{
 	Reader reader;
 	int offset = 0;
 	private BlockingQueue<String> queue;
+
 	protected Scissors(Reader reader, int offset, BlockingQueue<String> queue) {
 		this.reader = reader;
 		this.offset = offset;
 		this.queue = queue;
 	}
+
 	@Override
 	public void run() {
-
 		BufferedReader br = null;
+
 		try {
 			br = new BufferedReader(reader);
 
@@ -26,14 +30,19 @@ public abstract class Scissors implements Runnable{
 			br.skip(offset);
 
 			while(!Thread.currentThread().isInterrupted()) {
+
 				logLine = br.readLine();
 				if(logLine == null) {
+
 					break;
+
 				} else {
+
 					queue.put(logLine);
-					System.out.println("0000 :: " + logLine);
 					offset++;
+
 				}
+
 			}
 
 		} catch (IOException e) {

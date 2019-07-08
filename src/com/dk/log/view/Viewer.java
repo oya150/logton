@@ -1,4 +1,4 @@
-package com.dk.log;
+package com.dk.log.view;
 
 import java.io.IOException;
 

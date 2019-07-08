@@ -1,8 +1,4 @@
-package com.dk.log;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.Reader;
+package com.dk.log.scissors;
 
 /**
  * Created by dev on 19. 7. 5..
